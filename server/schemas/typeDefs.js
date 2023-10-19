@@ -1,3 +1,4 @@
+//BookInput is the input value passed to the saveBook mutation
 const typeDefs = `
 type User{
     _id:ID
