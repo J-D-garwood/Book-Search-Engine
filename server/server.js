@@ -1,12 +1,13 @@
 const express = require("express");
 const path = require("path");
 const db = require("./config/connection");
-// Import the ApolloServer class and expressMiddleware helper function
+//Importing ApolloServer, expressMiddleware 
 const { ApolloServer } = require("@apollo/server");
 const { expressMiddleware } = require("@apollo/server/express4");
-// Import the two parts of a GraphQL schema
+
 const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,6 +16,7 @@ const server = new ApolloServer({
   resolvers,
 });
 
+//defining apollo server start func
 const startApolloServer = async () => {
   await server.start();
 
@@ -40,4 +42,6 @@ const startApolloServer = async () => {
     });
   });
 };
+
+//starting apollo server
 startApolloServer();

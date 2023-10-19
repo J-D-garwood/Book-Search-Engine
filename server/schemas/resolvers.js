@@ -2,7 +2,7 @@ const { User } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const Resolvers = {
   Query: {
-    //to return the details of the current user and his/her savedBooks
+    //returns user details
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id });
@@ -11,13 +11,13 @@ const Resolvers = {
     },
   },
   Mutation: {
-    //to create a new user account
+    //creates new user
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
     },
-    // login for an existing user
+    // logs in existing user
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {
@@ -30,7 +30,7 @@ const Resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    //to add a book and its details to the current user
+    //adds a book to users saved books 
     saveBook: async (parent, { input }, context) => {
       if (context.user) {
         const user = User.findOneAndUpdate(
@@ -46,7 +46,7 @@ const Resolvers = {
       }
       throw AuthenticationError;
     },
-    //to remove a book from the savedBooks of the current user
+    //removes a book from saved books
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
         const user = User.findOneAndUpdate(

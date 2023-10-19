@@ -19,7 +19,7 @@ const LoginForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    // check if form has everything (as per react-bootstrap docs)
+    // checking form is valid
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
